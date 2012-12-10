@@ -46,7 +46,7 @@ module W3i
     def send_request(url, data)
       return false if @session.nil?
       data.merge!({"Session" => {"SessionId" => @session.session_id}})
-      post_request(url, data)
+      post_request(url, data.to_json)
     end
 
     # fetch qualified offers for given session
