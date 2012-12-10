@@ -18,7 +18,7 @@ class W3i::SessionDataTest < Test::Unit::TestCase
   def test_session_data
     data = File.read("#{FIXTURES}/session.json")
     FakeWeb.allow_net_connect = 'http://api.example.com'
-    FakeWeb.register_uri(:post, "http://api.example.com/PublicServices/MobileTrackingApiRestV1.svc/Session/Get", :body => data, :content_type => "application_json")
+    FakeWeb.register_uri(:post, "http://api.example.com/PublicServices/MobileTrackingApiRestV1.svc/Session/Get", :body => data, :content_type => "application/json")
     @client = W3i::Client.new(@client_options)
     assert_equal('2791019971', @client.session.session_id)
     assert_equal('472658300', @client.session.w3i_device_id)

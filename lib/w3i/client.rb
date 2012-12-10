@@ -89,12 +89,14 @@ module W3i
         raise W3i::UnknownError, e.message
       end
       
-      json_data = JSON.parse(response.body)
+      json_data = JSON.parse(response.body) if response.content_type == 'application/json'
       
       if response.code.to_i == 200
         return json_data
       else
-        raise W3i::ApiError, message: "#{json_data['code']} - #{json_data['message']}"
+        message = response.body
+        message = "#{json_data['code']} - #{json_data['message']}" unless json_data.nil?
+        raise W3i::ApiError, message: message
       end
 
       false
